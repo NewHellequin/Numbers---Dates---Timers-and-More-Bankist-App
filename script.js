@@ -94,7 +94,7 @@ const displayMovements = function (movements, sort = false) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}€</div>
+        <div class="movements__value">${mov.toFixed(2)}€</div>
       </div>
     `;
 
@@ -104,19 +104,19 @@ const displayMovements = function (movements, sort = false) {
 
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance}€`;
+  labelBalance.textContent = `${acc.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -126,7 +126,7 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 const createUsernames = function (accs) {
@@ -206,7 +206,7 @@ btnTransfer.addEventListener('click', function (e) {
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
-  const amount = +inputLoanAmount.value;
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
@@ -264,12 +264,98 @@ btnSort.addEventListener('click', function (e) {
 
 // Parsing
 
-console.log(Number.parseInt('30px', 10));
-console.log(Number.parseInt('e20', 10));
+// console.log(Number.parseInt('30px', 10));
+// console.log(Number.parseInt('e20', 10));
 
-console.log(Number.parseInt('2.5rem')); // gets rid of the decimal point
-console.log(Number.parseFloat('2.5rem')); // keeps decimal point in place
+// console.log(Number.parseInt('2.5rem')); // gets rid of the decimal point
+// console.log(Number.parseFloat('2.5rem')); // keeps decimal point in place
 
-console.log(Number.isNaN(20));
-console.log(Number.isNaN('20'));
-console.log(Number.isNaN(+'20X'));
+// console.log(Number.isNaN(20));
+// console.log(Number.isNaN('20'));
+// console.log(Number.isNaN(+'20X'));
+// console.log(Number.isNaN(23 / 0));
+
+// // Checking if value is number - this is the go to
+// console.log(Number.isFinite(20));
+// console.log(Number.isFinite('20'));
+// console.log(Number.isFinite(+'20X'));
+// console.log(Number.isFinite(23 / 0));
+
+// console.log(Number.isInteger(23));
+// console.log(Number.isInteger(23.0));
+// console.log(Number.isInteger(23 / 0));
+
+// console.log(Math.sqrt(25));
+// console.log(25 ** (1 / 2));
+// console.log(8 ** (1 / 3));
+
+// console.log(Math.max(5, 18, 23, 11, 5));
+// console.log(Math.max(5, 18, '23', 11, '5'));
+// console.log(Math.max(5, 18, '23px', 11, '5')); // does not do parsing
+
+// console.log(Math.min(5, 18, '23', 11, '5'));
+
+// console.log(Math.PI * Number.parseFloat('10px') ** 2);
+
+// console.log(Math.trunc(Math.random() * 6) + 1);
+
+// const randomInt = (min, max) => Math.floor(Math.random() * (max - min) + 1);
+
+// console.log(randomInt(1, 100));
+
+///// Rounding Integers
+
+// console.log(Math.trunc(23.3));
+
+// console.log(Math.round(23.3));
+// console.log(Math.round(23.9));
+
+// console.log(Math.ceil(23.9));
+// console.log(Math.ceil(23.9));
+
+// console.log(Math.floor(23.9));
+// console.log(Math.floor(23.9));
+
+// console.log(Math.trunc(-23.9));
+// console.log(Math.floor(-23.9));
+
+// //// Rounding decimals
+
+// console.log((2.7).toFixed(0)); // returns a string, not a number
+// console.log((2.7).toFixed(3)); // ascertains how many integers after the decimal point
+// console.log((2.345).toFixed(2));
+// console.log(+(2.345).toFixed(2));
+
+// //// Remainders
+
+// console.log(5 % 2);
+
+// const isEven = n => n % 2 === 0;
+// console.log(isEven(8));
+
+// labelBalance.addEventListener('click', function () {
+//   [...document.querySelectorAll('.movements__row')].forEach(function (row, i) {
+//     if (i % 2 === 0) row.style.backgroundColor = 'orangered';
+//     if (i % 3 === 0) row.style.backgroundColor = 'blue';
+//   });
+// });
+
+// Numeric seperators
+
+// const diameter = 287_460_000_000; // underscore is not shown on the console (its ignored by the engine)
+// console.log(diameter);
+
+// const priceCents = 345_99;
+// console.log(priceCents);
+
+// const transferFee1 = 15_00;
+// const transferFee2 = 1_500;
+// console.log(transferFee1, transferFee2);
+
+// const PI = 3.14_15;
+// console.log(PI);
+// // const PI2 = 3._1415; // error
+
+// console.log(Number('230000'));
+
+// BigInt
