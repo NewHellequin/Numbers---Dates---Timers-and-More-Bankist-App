@@ -359,3 +359,24 @@ btnSort.addEventListener('click', function (e) {
 // console.log(Number('230000'));
 
 // BigInt
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+
+console.log(89547508274303284725670270548274026402373642304n);
+console.log(BigInt(89547508274303));
+
+// Operations
+console.log(10000n + 10000n);
+console.log(29873428097475952875242742n * 100n);
+
+const huge = 23478534785n;
+const num = 23;
+// console.log(huge * num); // doesnt work
+console.log(huge * BigInt(num));
+
+// Exceptions
+console.log(20n > 15);
+console.log(20n === 20); // no type coersion
+console.log(typeof 20n);
+console.log(20n == 20);
